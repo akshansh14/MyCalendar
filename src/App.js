@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import MyCalendar from './Pages/Mycalendar';
+import MyCalendar from './Pages/MyCalendar';
 import EventList from './Pages/EventList';
-import { EventProvider } from './Context/EventContext';
+
 
 
 function App() {

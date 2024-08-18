@@ -1,26 +1,32 @@
-import { momentLocalizer } from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import { useState } from 'react';
 
+// Localizer setup
 const localizer = momentLocalizer(moment);
 
+// Custom Toolbar Component
 const CustomToolbar = ({ label, date, onNavigate, onView }) => {
   const [showDecadePicker, setShowDecadePicker] = useState(false);
   const [currentCentury, setCurrentCentury] = useState(Math.floor(date.getFullYear() / 100) * 100);
 
+  // Function to toggle decade picker visibility
   const toggleDecadePicker = () => {
     setShowDecadePicker(!showDecadePicker);
   };
 
+  // Function to navigate to a specific decade (start of the decade)
   const navigateToDecade = (year) => {
     setShowDecadePicker(false);
     onNavigate('DATE', moment(date).year(year).startOf('decade').toDate());
   };
 
+  // Function to navigate between centuries
   const changeCentury = (direction) => {
     setCurrentCentury(currentCentury + (direction === 'NEXT' ? 100 : -100));
   };
 
+  // Function to navigate to today's date
   const goToToday = () => {
     onNavigate('DATE', new Date());
   };

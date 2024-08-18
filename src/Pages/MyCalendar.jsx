@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import { useEvents } from '../Context/EventContext'; // Import useEvents
-import EventModal from '../components/EventModal';
-import { Link } from 'react-router-dom';
-import CustomToolbar from '../components/CustomToolbar';
+import React, { useState } from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import { useEvents } from "../Context/EventContext"; 
+import EventModal from "../components/EventModal";
+import { Link } from "react-router-dom";
+import CustomToolbar from "../components/CustomToolbar";
 
 const localizer = momentLocalizer(moment);
 
 const MyCalendar = () => {
-  const { events, setEvents } = useEvents(); // Get events from context
+  const { events, handleDeleteEvent ,handleSaveEvent,setEventToEdit,eventToEdit} = useEvents();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [eventToEdit, setEventToEdit] = useState(null);
+  
 
   const handleDateClick = (date) => {
     setSelectedDate(date);
@@ -26,17 +26,7 @@ const MyCalendar = () => {
     setIsModalOpen(true);
   };
 
-  const handleSaveEvent = (event) => {
-    if (eventToEdit) {
-      setEvents(events.map(e => e === eventToEdit ? event : e));
-    } else {
-      setEvents([...events, event]);
-    }
-  };
-
-  const handleDeleteEvent = (event) => {
-    setEvents(events.filter(e => e !== event));
-  };
+ 
 
   return (
     <div>
@@ -46,7 +36,7 @@ const MyCalendar = () => {
         endAccessor="end"
         style={{ height: 500 }}
         components={{
-          toolbar: CustomToolbar, // Use the custom toolbar
+          toolbar: CustomToolbar, 
         }}
         events={events}
         onSelectSlot={({ start }) => handleDateClick(start)}
@@ -63,7 +53,11 @@ const MyCalendar = () => {
         eventToEdit={eventToEdit}
       />
 
-      <Link to="/events">View List </Link>
+      <Link to="/events">
+        <div className="text-center mt-4 py-2 px-6 bg-blue-700 mx-auto flex justify-center items-center rounded-2xl text-white font-semibold w-[150px]">
+          View Events
+        </div>
+      </Link>
     </div>
   );
 };

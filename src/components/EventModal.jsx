@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useEvents } from '../Context/EventContext';
 
 const categories = ['Meeting', 'Workshop', 'Social', 'Deadline', 'Other'];
 
-const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedDate, eventToEdit }) => {
+const EventModal = ({ isOpen, onClose, onDelete, selectedDate, eventToEdit }) => {
   const [title, setTitle] = useState('');
+  const { handleSaveEvent} = useEvents();
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Meeting');
 
@@ -20,24 +22,22 @@ const EventModal = ({ isOpen, onClose, onSave, onDelete, selectedDate, eventToEd
   }, [eventToEdit]);
 
   const handleSave = () => {
-    const event = {
-      title,
-      description,
-      start: selectedDate,
-      end: selectedDate,
-      category
-    };
-    
-    if (eventToEdit) {
-      onSave({ ...eventToEdit, ...event });
-    } else {
-      onSave(event);
-    }
+      const event = {
+          title,
+          description,
+          start: selectedDate,
+          end: selectedDate,
+          category
+        };
+        
+        handleSaveEvent(event).then(()=>{
 
-    setTitle('');
-    setDescription('');
-    setCategory('Meeting');
-    onClose();
+            setTitle('');
+            setDescription('');
+            setCategory('Meeting');
+            onClose();
+        });
+   
   };
 
   const handleDelete = () => {

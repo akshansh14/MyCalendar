@@ -1,8 +1,6 @@
-import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import { useState } from 'react';
 
-const localizer = momentLocalizer(moment);
 
 const CustomToolbar = ({ label, date, onNavigate, onView }) => {
   const [showDecadePicker, setShowDecadePicker] = useState(false);
@@ -26,22 +24,24 @@ const CustomToolbar = ({ label, date, onNavigate, onView }) => {
   };
 
   return (
-    <div className="relative flex items-center justify-between p-4 bg-blue-500 text-white">
+    <div className="relative flex items-center justify-between p-2 py-3 bg-blue-700 text-white">
+      <div className='bg-white text-black px-2 rounded-full grig grid-cols-3'>
       <button onClick={() => onNavigate('PREV')} className="px-4 py-2">Back</button>
-      <span className="text-lg font-bold cursor-pointer" onClick={toggleDecadePicker}>
+      <button onClick={() => onNavigate('NEXT')} className="px-4 py-2">Next</button>
+      <button onClick={goToToday} className="px-4 py-2 ">Today</button>
+      </div>
+      <span className=" font-bold cursor-pointer text-xl" onClick={toggleDecadePicker}>
         {showDecadePicker ? `${currentCentury} - ${currentCentury + 99}` : label}
       </span>
-      <button onClick={() => onNavigate('NEXT')} className="px-4 py-2">Next</button>
-      <button onClick={goToToday} className="px-4 py-2 bg-green-500 hover:bg-green-600">Today</button>
-      <div>
-        <button onClick={() => onView('month')} className="px-2 py-1">Month</button>
-        <button onClick={() => onView('week')} className="px-2 py-1">Week</button>
-        <button onClick={() => onView('day')} className="px-2 py-1">Day</button>
+      <div className='bg-gray-200 text-black font-semibold px-2 rounded-full grig grid-cols-3'>
+        <button onClick={() => onView('month')} className="px-2 py-2 border-r-2">Month</button>
+        <button onClick={() => onView('week')} className="px-2 py-2">Week</button>
+        <button onClick={() => onView('day')} className="px-2 py-2 border-l-2">Day</button>
       </div>
 
       {/* Decade Picker Dropdown */}
       {showDecadePicker && (
-        <div className="absolute top-full mt-2 w-60 bg-white text-black p-2 rounded shadow-lg">
+        <div className="absolute top-full mt-2 w-60 z-40 bg-white text-black p-2 rounded shadow-lg">
           <div className="flex justify-between mb-2">
             <button onClick={() => changeCentury('PREV')} className="px-2 py-1 text-blue-500">Previous Century</button>
             <button onClick={() => changeCentury('NEXT')} className="px-2 py-1 text-blue-500">Next Century</button>

@@ -3,3 +3,13 @@
 @tailwind utilities;
 
 @import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+
+.rbc-header {
+    font-family: 'YourCustomFont', sans-serif; 
+    font-size: 1.25rem; 
+    font-weight:600;
+    color: #4A5568; 
+    padding: 8px 0px;
+}
+
